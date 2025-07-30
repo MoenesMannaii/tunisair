@@ -84,7 +84,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div
         className={`md:hidden bg-white border-t border-gray-200 shadow-md transition-max-height duration-500 ease-in-out overflow-hidden ${
-          mobileMenuOpen ? 'max-h-96' : 'max-h-0'
+          mobileMenuOpen ? 'max-h-full' : 'max-h-0'
         }`}
       >
         <ul className="flex flex-col px-6 py-4 space-y-3 text-gray-900 font-semibold tracking-wide text-lg">
@@ -99,16 +99,19 @@ export default function Navbar() {
           ))}
 
           {/* Mobile CTAs */}
-          <li>
-            <button className="w-full bg-red-700 text-white py-2 rounded-full shadow-lg hover:bg-red-800 transition-colors duration-300 font-semibold">
-              Book a Flight
-            </button>
-          </li>
-          <li>
-            <button className="w-full text-red-700 border border-red-700 py-2 rounded-full hover:bg-red-50 transition-colors duration-300 font-semibold">
-              Login
-            </button>
-          </li>
+        <div className="flex w-full flex-row justify-start space-x-4">
+  <li>
+    <button className="w-full bg-red-700 text-white px-4 py-2 shadow-lg hover:bg-red-800 transition-colors duration-300 font-semibold">
+      Book a Flight
+    </button>
+  </li>
+  <li>
+    <button className="w-full text-red-700 border border-red-700 px-4 py-2 hover:bg-red-50 transition-colors duration-300 font-semibold">
+      Login
+    </button>
+  </li>
+</div>
+
         </ul>
       </div>
     </nav>

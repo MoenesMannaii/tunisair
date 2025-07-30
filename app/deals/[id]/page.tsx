@@ -218,7 +218,7 @@ export default function DealBookingPage() {
                   <Button type="button" variant="outline" onClick={addPassenger}>
                     Add Passenger
                   </Button>
-                  <Button onClick={submitBooking} disabled={!seat} size="lg" className="px-10">
+                  <Button onClick={submitBooking} disabled={!seat} size="lg" className="px-4">
                     Finish Booking
                   </Button>
                 </div>
