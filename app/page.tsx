@@ -5,7 +5,6 @@ import DealsSection from "./components/DealsSection"
 export default function Home() {
   return (
     <main>
-    
       <Hero />
       <BookingForm />
       <DealsSection />

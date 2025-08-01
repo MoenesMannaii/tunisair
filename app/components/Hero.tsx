@@ -3,15 +3,15 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="bg-white flex flex-col items-center justify-center px-6 py-16 md:py-24 text-center min-h-screen">
+    <section className="bg-gradient-to-t from-[#ffffff] to-[#d0e8ff] flex flex-col items-center justify-center px-6 py-16 md:py-24 text-center min-h-screen">
       <div className="max-w-xl md:max-w-2xl lg:max-w-3xl">
-        <span className="uppercase text-xs md:text-sm font-semibold text-red-700 tracking-widest">
+        <span className="uppercase  text-xs md:text-sm font-semibold text-red-700 tracking-widest">
           Tunisair Exclusive
         </span>
-        <h1 className="mt-2 text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
+        <h1 className="mt-2 text-5xl text-left md:text-center sm:text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
           Discover the World with Confidence
         </h1>
-        <p className="mt-3 text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
+        <p className="mt-3 max-w-lg text-left md:text-center mx-auto text-sm sm:text-base text-gray-600 leading-relaxed">
           Fly to over 80 destinations worldwide with award‑winning service and
           unmatched comfort. Let Tunisair elevate your travel experience.
         </p>
@@ -25,11 +25,11 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="mt-8 w-full flex justify-center z-50 mix-blend-multiply">
+      <div className="mt-4 w-full flex justify-center z-50">
         <Image
-          src={images.AirbusXX}
+          src={images.AirbusXXX}
           alt="Airplane"
-          className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-4xl object-contain"
+          className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-5xl object-contain hidden md:block"
           priority
           quality={90}
         />
