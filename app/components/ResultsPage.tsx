@@ -8,6 +8,7 @@ import { Separator } from '../components/ui/separator'
 import { FaPlane } from 'react-icons/fa6'
 
 export default function CalendarResultsPage() {
+
   const sp = useSearchParams()
   const from = sp.get('from') || ''
   const to = sp.get('to') || ''
@@ -76,7 +77,7 @@ export default function CalendarResultsPage() {
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row border border-gray-200 rounded overflow-hidden relative">
       {/* Calendar Section */}
       <section className="flex-1 p-6 mt-16">
-        <h1 className="flex items-center gap-4 text-3xl font-bold mb-2">
+        <h1 className="flex items-center gap-4 text-2xl md:text-3xl font-bold mb-2">
           {origin?.city} <FaPlane /> {destination?.city}
         </h1>
         <p className="text-slate-500 mb-8">

@@ -18,37 +18,23 @@ function generateDeals(): Deal[] {
     {
       city: "France",
       code: "CDG",
-      image:
-        "https://images.pexels.com/photos/2738173/pexels-photo-2738173.jpeg",
+      image: "https://images.pexels.com/photos/2738173/pexels-photo-2738173.jpeg",
     },
     {
       city: "Italy",
       code: "FCO",
-      image:
-        "https://images.pexels.com/photos/1796736/pexels-photo-1796736.jpeg",
+      image: "https://images.pexels.com/photos/1796736/pexels-photo-1796736.jpeg",
     },
     {
       city: "Germany",
       code: "FRA",
-      image:
-        "https://images.pexels.com/photos/23106809/pexels-photo-23106809.jpeg",
+      image: "https://images.pexels.com/photos/23106809/pexels-photo-23106809.jpeg",
     },
     {
       city: "Spain",
       code: "MAD",
-      image:
-        "https://images.pexels.com/photos/3757144/pexels-photo-3757144.jpeg",
+      image: "https://images.pexels.com/photos/3757144/pexels-photo-3757144.jpeg",
     },
-    /*   {
-      city: 'Turkey',
-      code: 'IST',
-      image: 'https://images.pexels.com/photos/3071145/pexels-photo-3071145.jpeg',
-    },
-    {
-      city: 'UK',
-      code: 'LHR',
-      image: 'https://images.pexels.com/photos/3071145/pexels-photo-3071145.jpeg',
-    }, */
   ];
 
   const year = new Date().getFullYear();
@@ -86,7 +72,7 @@ export default function DealsSection() {
             {deals.map((deal) => (
               <div
                 key={deal.id}
-                className="bg-white rounded shadow overflow-hidden hover:shadow-lg transition-shadow"
+                className="bg-white border overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="relative w-full h-40">
                   <Image
@@ -134,6 +120,7 @@ export default function DealsSection() {
             ))}
           </div>
         )}
+
         <div className="relative w-full h-[550px] my-6 col-span-1 sm:col-span-2 lg:col-span-4 overflow-hidden border-8 border-white">
           <Image
             src="https://i.pinimg.com/1200x/1f/25/57/1f2557abb315e35ddc8b4b9ed09fdfd0.jpg"
@@ -145,22 +132,22 @@ export default function DealsSection() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
           <div className="absolute w-22 h-22 sm:w-44 sm:h-44 top-0 right-6 sm:right-12">
-   <Image
-            src="https://www.tunisair.com/sites/default/files/inline-images/Group%201455%20%281%29.png"
-            alt="Special Offer"
-            fill
-            className="object-contain"
-            sizes="100vw"
-            priority
-          />
-</div>
-<div className="absolute top-4 left-4 max-w-md p-2">
-  <span className="uppercase text-white font-semibold">Fidelys</span>
-</div>
-          <div className="absolute bottom-12 left-4  text-white p-4 max-w-lg space-y-4">
+            <Image
+              src="https://www.tunisair.com/sites/default/files/inline-images/Group%201455%20%281%29.png"
+              alt="Special Offer"
+              fill
+              className="object-contain"
+              sizes="100vw"
+              priority
+            />
+          </div>
+          <div className="absolute top-4 left-4 max-w-md p-2">
+            <span className="uppercase text-white font-semibold">Fidelys</span>
+          </div>
+          <div className="absolute bottom-12 left-4 text-white p-4 max-w-lg space-y-4">
             <h3 className="text-lg sm:text-3xl font-bold">Your satisfaction is our priority</h3>
             <Link href="/" className="text-xs sm:text-sm mt-1 w-full hover:underline">
-             <span className="text-base text-red-600">ᯓ✈︎</span> WELCOME TO A WORLD OF BENEFITS
+              <span className="text-base text-red-600">ᯓ✈︎</span> WELCOME TO A WORLD OF BENEFITS
             </Link>
           </div>
         </div>

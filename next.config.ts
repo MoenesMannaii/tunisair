@@ -49,6 +49,16 @@ const nextConfig: NextConfig = {
         hostname: 'tunisair.com.tn',
         pathname: '/**',
       },
+      {        protocol: 'https',
+        hostname: 'loremflickr.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'static.tunisair.com',
+        pathname: '/**',
+      },
+      
     ],
   },
 }

@@ -24,8 +24,10 @@ import {
 } from '@/app/components/ui/command'
 import { cn } from '@/lib/utils'
 import { format, isBefore } from 'date-fns'
-import { MdFlightLand, MdFlightTakeoff } from 'react-icons/md'
+import { MdFlightClass, MdFlightLand, MdFlightTakeoff, MdOutlineAirplaneTicket, MdOutlineCalendarMonth } from 'react-icons/md'
 import { useRouter } from 'next/navigation'
+import { PiUsersThree } from "react-icons/pi";
+
 
 
 type FormState = {
@@ -165,11 +167,11 @@ function PassengersModal({
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.5, opacity: 0 }}
-            className="bg-white p-6 rounded-lg shadow-lg"
+            className="bg-white p-6 w-lg rounded-3xl shadow-lg"
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold">Choose Passengers</h3>
-              <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+              <button onClick={onClose} className="text-xl cursor-pointer text-gray-500 hover:text-gray-700">
                 <FiX />
               </button>
             </div>
@@ -252,10 +254,10 @@ function PassengersModal({
               </div>
             </div>
             <div className="flex justify-end mt-4">
-              <Button onClick={onClose} className="mr-2">
+              <Button onClick={onClose} className="mr-2 cursor-pointer">
                 Cancel
               </Button>
-              <Button onClick={handleConfirm}>
+              <Button onClick={handleConfirm} className='cursor-pointer'>
                 Confirm
               </Button>
             </div>
@@ -314,7 +316,7 @@ export default function BookingForm() {
   }
 
   /* ------------- SEARCH (HARDCODED) ------------- */
-  const handleSubmit = async (e: React.FormEvent) => {
+/*   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const vError = validate()
     if (vError) {
@@ -333,20 +335,46 @@ export default function BookingForm() {
     }
 
     setLoading(false)
-  }
+  } */
 
   const router = useRouter();
-  const handleSearch = () => {
-    const { origin, destination, departingDate, returnDate, passengers } = form;
-    const params = new URLSearchParams({
-      from: origin,
-      to: destination,
-      depart: departingDate ? format(departingDate, 'yyyy-MM-dd') : '',
-      ret: returnDate ? format(returnDate, 'yyyy-MM-dd') : '',
-      pax: `${passengers.adults}A${passengers.youths}Y${passengers.children}C${passengers.infants}I`,
-    });
-    router.push(`/search-results?${params.toString()}`);
-  };
+const handleSearch = () => {
+  const { origin, destination, departingDate, returnDate, passengers } = form;
+  const params = new URLSearchParams({
+    from: origin,
+    to: destination,
+    depart: departingDate ? format(departingDate, 'yyyy-MM-dd') : '',
+    ret: returnDate ? format(returnDate, 'yyyy-MM-dd') : '',
+    pax: `${passengers.adults}A${passengers.youths}Y${passengers.children}C${passengers.infants}I`,
+  });
+  router.push(`/search-results?${params.toString()}`);
+};
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  const vError = validate();
+  if (vError) {
+    setError(vError);
+    return;
+  }
+
+  setError(null);
+  setLoading(true);
+
+  const { origin, destination, departingDate, returnDate, passengers } = form;
+
+  const params = new URLSearchParams({
+    from: origin,
+    to: destination,
+    depart: departingDate ? format(departingDate, 'yyyy-MM-dd') : '',
+    ret: returnDate ? format(returnDate, 'yyyy-MM-dd') : '',
+    pax: `${passengers.adults}A${passengers.youths}Y${passengers.children}C${passengers.infants}I`,
+  });
+
+  router.push(`/search-results?${params.toString()}`);
+  setLoading(false);
+};
+
 
   return (
     <div className="w-full flex justify-center py-24 px-2 sm:px-6 lg:px-8 -mt-40">
@@ -364,93 +392,116 @@ export default function BookingForm() {
         </p>
 
         {/* SEARCH FORM */}
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="col-span-1">
-            <label className="flex items-center space-x-1">
-              <MdFlightTakeoff className="text-lg" />
-              <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>From</span>
-            </label>
-            <AirportAutocompleteInput label="" value={form.origin} onChange={v => handleChange('origin', v)} placeholder="TUN" />
-          </div>
-          <div className="col-span-1">
-            <label className="flex items-center space-x-1">
-              <MdFlightLand className="text-lg" />
-              <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>Arriving at</span>
-            </label>
-            <AirportAutocompleteInput label="" value={form.destination} onChange={v => handleChange('destination', v)} placeholder="PAR" />
-          </div>
+       <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div className="col-span-1">
+    <label className="flex items-center space-x-1">
+      <MdFlightTakeoff className="text-lg text-red-700" />
+      <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>From</span>
+    </label>
+    <AirportAutocompleteInput label="" value={form.origin} onChange={v => handleChange('origin', v)} placeholder="TUN" />
+  </div>
+  <div className="col-span-1">
+    <label className="flex items-center space-x-1">
+      <MdFlightLand className="text-lg text-red-700" />
+      <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>Arriving at</span>
+    </label>
+    <AirportAutocompleteInput label="" value={form.destination} onChange={v => handleChange('destination', v)} placeholder="PAR" />
+  </div>
 
-          <div className="col-span-1">
-            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Departing Date</label>
-            <Popover>
-              <PopoverTrigger asChild>
-                             <Button variant="outline" className={cn('w-full justify-start text-left font-normal', !form.departingDate && 'text-gray-500')}>
-                {form.departingDate ? format(form.departingDate, 'PPP') : 'Pick a date'}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar mode="single" selected={form.departingDate || undefined} onSelect={d => handleChange('departingDate', d ?? null)} disabled={{ before: new Date() }} initialFocus />
-            </PopoverContent>
-          </Popover>
-        </div>
+  <div className="col-span-1">
+    <label className="flex items-center space-x-1">
+      <MdOutlineCalendarMonth className="text-lg text-red-700 mb-0.5" />
+      <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>Departing Date</span>
+    </label>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className={cn('w-full justify-start text-left font-normal', !form.departingDate && 'text-gray-500')}>
+          {form.departingDate ? format(form.departingDate, 'PPP') : 'Pick a date'}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar mode="single" selected={form.departingDate || undefined} onSelect={d => handleChange('departingDate', d ?? null)} disabled={{ before: new Date() }} initialFocus />
+      </PopoverContent>
+    </Popover>
+  </div>
 
-        <div className="col-span-1">
-          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Return Date</label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" disabled={!form.isReturn} className={cn('w-full justify-start text-left font-normal', !form.returnDate && 'text-gray-500', !form.isReturn && 'opacity-50 cursor-not-allowed')}>
-                {form.returnDate ? format(form.returnDate, 'PPP') : 'Pick a date'}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0">
-              <Calendar mode="single" selected={form.returnDate || undefined} onSelect={d => handleChange('returnDate', d ?? null)} disabled={{ before: form.departingDate ?? new Date() }} initialFocus />
-            </PopoverContent>
-          </Popover>
-        </div>
+  <div className="col-span-1">
+    <label className="flex items-center space-x-1">
+      <MdOutlineCalendarMonth className="text-lg text-red-700 mb-0.5" />
+      <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>Return Date</span>
+    </label>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" disabled={!form.isReturn} className={cn('w-full justify-start text-left font-normal', !form.returnDate && 'text-gray-500', !form.isReturn && 'opacity-50 cursor-not-allowed')}>
+          {form.returnDate ? format(form.returnDate, 'PPP') : 'Pick a date'}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar mode="single" selected={form.returnDate || undefined} onSelect={d => handleChange('returnDate', d ?? null)} disabled={{ before: form.departingDate ?? new Date() }} initialFocus />
+      </PopoverContent>
+    </Popover>
+  </div>
 
-        <div className="col-span-1 sm:col-span-2 lg:col-span-1">
-          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Flight Options</label>
-          <Select value={form.isReturn ? 'Return' : 'One Way'} onValueChange={v => handleChange('isReturn', v === 'Return')}>
-            <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Return">Return</SelectItem>
-              <SelectItem value="One Way">One Way</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+  <div className="col-span-1 sm:col-span-2 lg:col-span-1">
+    <label className="flex items-center space-x-1">
+      <MdOutlineAirplaneTicket className="text-lg text-red-700" />
+      <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>Flight Options</span>
+    </label>
+    <Select value={form.isReturn ? 'Return' : 'One Way'} onValueChange={v => handleChange('isReturn', v === 'Return')}>
+      <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+      <SelectContent>
+        <SelectItem value="Return">Return</SelectItem>
+        <SelectItem value="One Way">One Way</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
 
-        <div className="col-span-1 sm:col-span-2 lg:col-span-1">
-          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Passengers</label>
-          <Button variant="outline" onClick={() => setPassengersModalOpen(true)} className="w-full justify-start text-left font-normal">
-            {form.passengers.adults > 0 || form.passengers.youths > 0 || form.passengers.children > 0 || form.passengers.infants > 0
-              ? `${form.passengers.adults} Adults, ${form.passengers.youths} Youths, ${form.passengers.children} Children, ${form.passengers.infants} Infants`
-              : 'Choose Passengers'}
-          </Button>
-        </div>
+  <div className="col-span-1 sm:col-span-2 lg:col-span-1">
+    <label className="flex items-center space-x-1">
+      <PiUsersThree className="text-lg text-red-700" />
+      <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>Passengers</span>
+    </label>
+    <Button
+      type="button" // Add this attribute to prevent form submission
+      variant="outline"
+      onClick={() => setPassengersModalOpen(true)}
+      className="w-full justify-start text-left font-normal"
+    >
+      {form.passengers.adults > 0 ||
+      form.passengers.youths > 0 ||
+      form.passengers.children > 0 ||
+      form.passengers.infants > 0
+        ? `${form.passengers.adults} Adults, ${form.passengers.youths} Youths, ${form.passengers.children} Children, ${form.passengers.infants} Infants`
+        : 'Choose Passengers'}
+    </Button>
+  </div>
 
-        <div className="col-span-1 sm:col-span-2 lg:col-span-1">
-          <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Class</label>
-          <Select value={form.class} onValueChange={v => handleChange('class', v)}>
-            <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Economy">Economy</SelectItem>
-              <SelectItem value="Business">Business</SelectItem>
-              <SelectItem value="First">First</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+  <div className="col-span-1 sm:col-span-2 lg:col-span-1">
+    <label className="flex items-center space-x-1">
+      <MdFlightClass className="text-lg text-red-700" />
+      <span className='block text-xs font-semibold text-gray-700 uppercase tracking-wide'>Class</span>
+    </label>
+    <Select value={form.class} onValueChange={v => handleChange('class', v)}>
+      <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
+      <SelectContent>
+        <SelectItem value="Economy">Economy</SelectItem>
+        <SelectItem value="Business">Business</SelectItem>
+        <SelectItem value="First">First</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
 
-        <div className="col-span-1 sm:col-span-2 lg:col-span-1">
-          <div className="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1 py-2" />
-          <Button onClick={handleSearch} type="submit" disabled={loading} className="w-full bg-red-700 hover:bg-red-800 text-white">
-            {loading ? (
-              <span className="flex items-center gap-2"><FiRefreshCw className="animate-spin" /> Searching...</span>
-            ) : (
-              <span className="flex items-center gap-2"><FiArrowRight /> Check Flights</span>
-            )}
-          </Button>
-        </div>
-      </form>
+  <div className="col-span-1 sm:col-span-2 lg:col-span-1">
+    <div className="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-0.5 py-2" />
+    <Button type="submit" disabled={loading} className="w-full bg-red-700 hover:bg-red-800 text-white">
+      {loading ? (
+        <span className="flex items-center gap-2"><FiRefreshCw className="animate-spin" /> Searching...</span>
+      ) : (
+        <span className="flex items-center gap-2"><FiArrowRight /> Check Flights</span>
+      )}
+    </Button>
+  </div>
+</form>
 
       {/* ERROR */}
       <AnimatePresence>

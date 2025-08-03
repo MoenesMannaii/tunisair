@@ -1,9 +1,10 @@
 import * as images from "../../assets/image";
 import Image from "next/image";
+import { Button } from "./ui/button";
 
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-t from-[#ffffff] to-[#d0e8ff] flex flex-col items-center justify-center px-6 py-16 md:py-24 text-center min-h-screen">
+    <section className="bg-gradient-to-t from-[#ffffff] to-[#cae6ff] flex flex-col items-center justify-center px-6 py-16 md:py-24 text-center min-h-screen">
       <div className="max-w-xl md:max-w-2xl lg:max-w-3xl">
         <span className="uppercase  text-xs md:text-sm font-semibold text-red-700 tracking-widest">
           Tunisair Exclusive
@@ -16,9 +17,9 @@ export default function Hero() {
           unmatched comfort. Let Tunisair elevate your travel experience.
         </p>
         <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-          <button className="bg-red-700 text-white px-4 py-2 text-sm sm:text-base font-bold rounded shadow hover:bg-red-800 transition">
+          <Button className="bg-red-700 text-white px-4 py-2 text-sm sm:text-sm font-bold rounded shadow hover:bg-red-800 transition">
             View Destinations
-          </button>
+          </Button>
           {/*  <button className="border border-red-700 text-red-700 px-4 py-2 text-sm sm:text-base rounded hover:bg-blue-50 transition">
         View Destinations
       </button> */}

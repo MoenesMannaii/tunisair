@@ -1,6 +1,7 @@
 import Hero from "./components/Hero"
 import BookingForm from "./components/BookingForm"
 import DealsSection from "./components/DealsSection"
+import OffersSection from "./components/OfferSection"
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <BookingForm />
       <DealsSection />
+      <OffersSection />
     </main>
   )
 }
